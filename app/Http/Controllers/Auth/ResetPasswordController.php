@@ -5,6 +5,10 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\ResetsPasswords;
+use Illuminate\Http\Request;
+use App\User;
+use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Hash;
 
 class ResetPasswordController extends Controller
 {
@@ -27,4 +31,25 @@ class ResetPasswordController extends Controller
      * @var string
      */
     protected $redirectTo = RouteServiceProvider::HOME;
+
+    public function updatePassword(Request $request)
+    {
+        $this->validate($request,[
+            'email' => 'required|email|exists:users',
+            'password' => 'required|min:6'
+        ]);
+
+        $id = $request->activation_token;
+        $user = User::whereActivation_token($id)->first();
+        if ($request->email !== $user->email) {
+            return redirect()->back()->with('error', 'Email của bạn chưa đúng.');
+        } else {
+            $user->update([
+                'password' => Hash::make($request['password']),
+                'activation_token' => null
+            ]);
+
+            return redirect('login')->with('success','Bạn đã thay đổi thành công mật khẩu');
+        }
+    }
 }

@@ -1,65 +1,77 @@
-@extends('layouts.app')
+<!doctype html>
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-@section('content')
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">{{ __('Reset Password') }}</div>
+    <!-- CSRF Token -->
+    <meta name="csrf-token" content="{{ csrf_token() }}">
 
-                <div class="card-body">
-                    <form method="POST" action="{{ route('password.update') }}">
-                        @csrf
+    <title>Lấy lại mật khẩu</title>
 
-                        <input type="hidden" name="token" value="{{ $token }}">
+    <!-- Fontfaces CSS-->
+    <link href="{{ asset('admin/css/font-face.css') }}" rel="stylesheet" media="all">
+    <link href="{{ asset('admin/vendor/font-awesome-4.7/css/font-awesome.min.css') }}" rel="stylesheet" media="all">
+    <link href="{{ asset('admin/vendor/font-awesome-5/css/fontawesome-all.min.css') }}" rel="stylesheet" media="all">
+    <link href="{{ asset('admin/vendor/mdi-font/css/material-design-iconic-font.min.css') }}" rel="stylesheet" media="all">
+    <link rel="stylesheet" href="{{ asset('website/login/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('website/login/theme.css') }}">
 
-                        <div class="form-group row">
-                            <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('E-Mail Address') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ $email ?? old('email') }}" required autocomplete="email" autofocus>
-
-                                @error('email')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                        </div>
-
-                        <div class="form-group row">
-                            <label for="password" class="col-md-4 col-form-label text-md-right">{{ __('Password') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="new-password">
-
-                                @error('password')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                        </div>
-
-                        <div class="form-group row">
-                            <label for="password-confirm" class="col-md-4 col-form-label text-md-right">{{ __('Confirm Password') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password">
-                            </div>
-                        </div>
-
-                        <div class="form-group row mb-0">
-                            <div class="col-md-6 offset-md-4">
-                                <button type="submit" class="btn btn-primary">
-                                    {{ __('Reset Password') }}
-                                </button>
-                            </div>
-                        </div>
-                    </form>
-                </div>
+</head>
+<body>
+    <div class="registration-form">
+        <form method="POST" action="{{ route('updatePassword') }}">
+            @csrf
+            <div class="form-icon">
+                <span><i class="fab fa-stripe-s"></i></span>
             </div>
+
+            @if (session('error'))
+                <div class="alert alert-danger" role="alert">
+                    {{ session('error') }}
+                </div>
+            @endif
+            
+            <input type="hidden" name="activation_token" value="{{ $token }}">
+
+            <div class="form-group">
+                <input id="email" type="email" placeholder="Nhập email xác nhận" class="form-control item @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
+
+                @error('email')
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                @enderror
+            </div>
+
+            <div class="form-group">
+                <input id="password" type="password" placeholder="Nhập mật khẩu mới" class="form-control item @error('password') is-invalid @enderror" name="password" required autocomplete="new-password">
+
+                @error('password')
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                @enderror
+            </div>
+
+            <div class="form-group">
+                <input id="password-confirm" type="password" placeholder="Nhập lại mật khẩu mới" class="form-control item" name="password_confirmation" required autocomplete="new-password">
+            </div>
+
+            <div class="form-group">
+                <button type="submit" class="btn btn-block create-account">Xác nhận</button>
+            </div>
+        </form>
+
+        <div class="social-media">  
+            @if (Route::has('register'))
+                <a href="{{ route('register') }}" class="btn btn-primary btn-lg active" role="button" aria-pressed="true">Đăng ký</a>
+            @endif
+            <a href="{{ route('login') }}" class="btn btn-secondary btn-lg active" role="button" aria-pressed="true">Đăng nhập</a>  
         </div>
     </div>
-</div>
-@endsection
+    <script type="text/javascript" src="{{ asset('website/login/jquery-3.2.1.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('website/login/jquery.mask.min.js') }}"></script>
+</body>
+</html>
+​
