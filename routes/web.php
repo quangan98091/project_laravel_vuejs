@@ -19,8 +19,16 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+// Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/home', 'HomeController@showPageGuest');
 
+Route::get('/dashboard', 'HomeController@showPageAdmin');
+
+
+Route::get('/logout', function ()
+{
+    return view('welcome');
+});
 
 Route::post('/postforgot', 'Auth\ForgotPasswordController@postforgot')->name('postforgot');
 Route::get('/verifytoken', 'Auth\VerificationTokenController@verifytoken')->name('verifytoken');

@@ -1,5 +1,5 @@
 <template>
-    <div class="container">
+    <div class="container" v-if="$gate.isAdmin()">
         <div class="bootstrap snippet">
             <div class="row">
                 <div class="col-sm-4"><!--left col-->
@@ -100,8 +100,11 @@
         },
         methods: {
             getProfilePhoto() {
-                let photo = (this.form.photo.length > 200) ? this.form.photo : "img/profile/"+ this.form.photo ;
-                return  photo;
+                if(this.form.photo != null) {
+                    return (this.form.photo.length > 200) ? this.form.photo : "img/profile/"+ this.form.photo ;
+                } else {
+                    return 'admin/images/icon/profile.png';
+                }
             },
             updateInfo() {
                 this.$Progress.start();
@@ -110,6 +113,10 @@
                 }
                 this.form.put('api/profile')
                 .then(()=>{
+                    toast.fire({
+                        icon: 'success',
+                        title: 'Cập nhập thành công!'
+                    })
                     Fire.$emit('AfterCreate');
                     this.$Progress.finish();
                 })
@@ -122,10 +129,10 @@
                 let reader = new FileReader();
                 let limit = 1024 * 1024 * 2;
                 if(file['size'] > limit){
-                    swal({
-                        type: 'Lỗi',
-                        title: 'Đã xả ra lỗi',
-                        text: 'Hình ảnh có kích thước quá lớn.',
+                    swal.fire({
+                        type: 'error',
+                        title: 'Dung lượng ảnh quá lớn',
+                        text: 'Bạn nên chọn một ảnh có dung lương ít hơn',
                     })
                     return false;
                 }
@@ -133,21 +140,6 @@
                     this.form.photo = reader.result;
                 }
                 reader.readAsDataURL(file);
-            },
-            loadProfile() {
-                this.$Progress.start();
-
-                this.form.get('api/profile')
-                .then(()=>{
-                    swal.fire(
-                        'Cập nhập thành công!',
-                        '',
-                        'success'
-                    )
-                    this.$Progress.finish();
-                })
-                .catch(()=>{
-                });
             }
         },
         created() {
@@ -155,7 +147,7 @@
             .then(({ data }) => (this.form.fill(data)));
 
             Fire.$on('AfterCreate',() => {
-               this.loadProfile();
+               location.reload();
            });
         }
     }

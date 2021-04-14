@@ -1,12 +1,11 @@
 <template>
-    <div class="container">
-        <div class="row" v-if="$gate.isAdmin()">
+    <div class="container" v-if="$gate.isAdmin()">
+        <div class="row">
             <div class="col-md-12">
                 <!-- DATA TABLE -->
-                <h3 class="title-5 m-b-35">Bảng user</h3>
+                <h3 class="title-5 m-b-35 title-component">Bảng user</h3>
                 <div class="table-data__tool">
                     <div class="table-data__tool-left">
-                        
                     </div>
                     <div class="table-data__tool-right">
                         <button class="au-btn au-btn-icon au-btn--green au-btn--small" @click="addModel()">
@@ -130,6 +129,9 @@
             return {
                 editmode: false,
                 users: {},
+                id_user: new Form({ 
+                    id:'',  name : '',  email: '',  password: '',   type: '',   photo: ''
+                }),
                 form: new Form({
                     id:'',
                     name : '',
@@ -173,36 +175,51 @@
                     Fire.$emit('AfterCreate');
                 })
                 .catch(() => {
+                    toast.fire({
+                        icon: 'error',
+                        title: 'Đã xảy ra lỗi trong quá trình thực hiện'
+                    })
                     this.$Progress.fail();
                 });
             },
             deleteUser(id) {
-                swal.fire({
-                    title: 'Bạn có chắc không?',
-                    text: "Bạn sẽ không thể khôi phục lại dữ liệu này!",
-                    icon: 'warning',
-                    showCancelButton: true,
-                    confirmButtonColor: '#3085d6',
-                    cancelButtonColor: '#d33',
-                    confirmButtonText: 'Đồng ý!'
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        //Send request to the server
-                        this.form.delete('api/user/'+id)
-                        .then(() => {
-                            
-                                swal.fire(
-                                'Xóa thành công!',
-                                'Bạn đã xóa thành công một user.',
-                                'success'
-                                )
-                            
-                            Fire.$emit('AfterCreate');
-                        }).catch(() => {
-                            swal.fire("Failed!", "There was something wronge.", "warning");
-                        });
-                    }
-                })
+                if(id == this.id_user.id) {
+                    swal.fire({
+                        icon: 'error',
+                        title: 'Không xóa được',
+                        text: 'Tài khoản hiện đang được sử dụng'
+                    })
+                } else {
+                    swal.fire({
+                        title: 'Bạn có chắc không?',
+                        text: "Bạn sẽ không thể khôi phục lại dữ liệu này!",
+                        icon: 'warning',
+                        showCancelButton: true,
+                        confirmButtonColor: '#3085d6',
+                        cancelButtonColor: '#d33',
+                        confirmButtonText: 'Đồng ý!'
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            //Send request to the server
+                            this.form.delete('api/user/'+id)
+                            .then(() => {
+                                
+                                    swal.fire(
+                                    'Xóa thành công!',
+                                    'Bạn đã xóa thành công một user.',
+                                    'success'
+                                    )
+                                
+                                Fire.$emit('AfterCreate');
+                            }).catch(() => {
+                                toast.fire({
+                                    icon: 'error',
+                                    title: 'Đã xảy ra lỗi trong quá trình thực hiện'
+                                })
+                            });
+                        }
+                    })
+                }
 
             },
             loadUsers() {
@@ -210,7 +227,10 @@
                     axios.get("api/user")
                     .then(
                         ({ data }) => (this.users = data)
-                    );
+                    )
+                    .catch(() => {
+                        
+                    });
                 }
                 
             },
@@ -233,6 +253,9 @@
             }
         },
         created() {
+            axios.get("api/profile")
+            .then(({ data }) => (this.id_user = (data)));
+
             Fire.$on('searching',() => {
                 let query = this.$parent.search;
                 axios.get('api/findUser?q=' + query)

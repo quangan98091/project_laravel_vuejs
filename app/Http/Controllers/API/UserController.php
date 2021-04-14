@@ -136,6 +136,10 @@ class UserController extends Controller
         
         $user = User::findOrFail($id);
         // delete the user
+        $userPhoto = public_path('img/profile/').$user->photo;
+        if(file_exists($userPhoto)){
+            @unlink($userPhoto);
+        }
 
         $user->delete();
 
