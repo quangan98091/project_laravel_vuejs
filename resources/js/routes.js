@@ -5,6 +5,7 @@ import CategoryComponent from './components/backend/CategoryComponent';
 import DeveloperComponent from './components/backend/DeveloperComponent';
 import ProfileComponent from './components/backend/ProfileComponent';
 import NotFoundComponent from './components/backend/NotFoundComponent';
+import ChatComponent from './components/backend/ChatComponent';
 
 const routes = [
     {path:'/', component: IndexComponent},
@@ -13,7 +14,8 @@ const routes = [
     {path:'/category', component: CategoryComponent},
     {path:'/developer', component: DeveloperComponent},
     {path:'/profile', component: ProfileComponent},
-    {path: '*', component: NotFoundComponent }
+    {path: '*', component: NotFoundComponent },
+    {path:'/chat', component:ChatComponent} 
 
 ];
 

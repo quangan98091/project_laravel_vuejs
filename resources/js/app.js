@@ -55,6 +55,12 @@ Vue.filter('upText', function(text){
 });
 Vue.filter('myDate',function(created){
     return moment(created).format('L');
+});  
+Vue.filter('historyDate',function(created){
+    return moment(created).format('h:mm a, 	DD/MM/YYYY');
+});
+Vue.filter('historyDay',function(created){
+    return moment(created).startOf('hour').fromNow(); 
 });
 
 window.Fire =  new Vue();

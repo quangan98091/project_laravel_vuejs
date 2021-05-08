@@ -599,7 +599,7 @@ textarea.form-control {
 }
 
 .pagination .page-item:first-child .page-link, .pagination .page-item:last-child .page-link {
-  font-size: 16px;
+  font-size: 30px;
 }
 
 .pagination .page-item.active .page-link {
@@ -846,3 +846,63 @@ blockquote {
 }
 
 /*# sourceMappingURL=maps/style.css.map */
+
+
+
+
+.btn-load-post {
+  left: 43%;
+  margin: 23px 10px;
+  width: 230px;
+  font-size: 21px;
+  border-radius: 44px;
+  overflow: hidden;
+}
+.post-one {
+  border-bottom: 1px solid #38363696;
+  margin-bottom: 15px;
+  padding-bottom: 15px;
+}
+.post-img img {
+  cursor: pointer;
+  width: 100%;
+  border-radius: 5px;
+  max-height: 200px;
+  object-fit: cover;
+}
+.post-content {
+  overflow: hidden;
+}
+
+.category-post {
+  font-size: 14px;
+  background: linear-gradient(90deg, rgba(161,255,146,0.8799894957983193) 43%, rgba(142,232,250,1) 100%);
+  padding: 4px 9px;
+  color: black;
+  font-family: cursive;
+  border-radius: 19px;
+}
+
+.list-inline-item >a {
+  padding: 5px 10px;
+  font-size: 15px;
+  box-shadow: 0 0 5px #00000082;
+  font-family: cursive;
+  border-radius: 10px;
+  margin: 3px 3px;
+}
+
+.img-post-same {
+  cursor: pointer;
+  width: 100%;
+  border-radius: 5px;
+  max-height: 150px;
+  object-fit: cover;
+}
+
+.title-same-post-child {
+  border-bottom: 1px solid black;
+  padding-bottom: 10px;
+  font-size: 20px;
+  padding-left: 5px;
+}

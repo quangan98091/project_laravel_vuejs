@@ -39,7 +39,7 @@
                                     </label>
                                 </td>
                                 <td>{{post.id}}</td>
-                                <td>{{post.title}}</td>
+                                <td style="max-width:250px; overflow: hidden;">{{post.title}}</td>
                                 <td>
                                     <ul>
                                         <li v-for="item in post.categories" :key="item.id">

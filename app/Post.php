@@ -4,9 +4,6 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-use App\User;
-use App\Category;
-
 class Post extends Model
 {
     //
@@ -32,6 +29,11 @@ class Post extends Model
     public function categories()
     {
         return $this->belongsToMany(Category::class, 'category_posts');
+    }
+
+    public function likePost()
+    {
+        return $this->hasOne(LikePost::class);
     }
 
     // public function comments()

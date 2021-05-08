@@ -80,18 +80,21 @@
             </div>   
          @endif
     </div>
-    <div class="clearfix"></div>
+    
     
     <div id="app">
 
     </div>
     
 
-    @auth
+    {{-- @auth
         <script>
             window.user = @json(auth()->user())
         </script>
-    @endauth
+    @endauth --}}
+    <script>
+        window.user = (@json(auth()->user()) != null) ? @json(auth()->user()) : undefined;
+    </script>
     
     <!-- Scripts -->
     <script src="{{ asset('js/fontend.js') }}"></script>

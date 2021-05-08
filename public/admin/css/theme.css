@@ -3478,9 +3478,8 @@ section {
 }
 
 .au-message__noti {
-    padding: 25px 15px;
+    padding: 10px 15px;
     padding-left: 40px;
-    padding-bottom: 22px;
     border-bottom: 1px solid #f2f2f2;
 }
 

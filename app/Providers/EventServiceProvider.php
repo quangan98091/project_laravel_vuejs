@@ -22,6 +22,10 @@ class EventServiceProvider extends ServiceProvider
         'App\Events\Auth\ForgotActivationEmail' => [
             'App\Listeners\Auth\SendActivationEmailForgot'
         ],
+
+        'App\Events\NewChatMessage' => [
+            'App\Listeners\SendChatMessageNotification'
+        ],
     ];
 
     /**

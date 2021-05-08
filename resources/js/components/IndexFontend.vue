@@ -1,5 +1,6 @@
 <template>
     <div>
+        <div class="clearfix" v-if="user.type == 'admin' || user.id == ''"></div>
         <header class="navigation" style="padding-top: 0px;">
             <nav class="navbar navbar-expand-lg navbar-light">
                 <router-link to="/" class="navbar-brand"  style="font-size: 33px;">
@@ -32,6 +33,10 @@
                             <router-link to="/user" class="dropdown-item">
                                 <i class="fas fa-id-card" style="margin-right:10px;"></i>Thông tin cá nhân
                             </router-link>
+                            <router-link to="/chat" class="dropdown-item">
+                                <i class="fab fa-facebook-messenger" style="margin-right:10px;"></i>Nhắn tin cho admin
+                            </router-link>
+
                             <a class="dropdown-item" v-on:click="logout">
                                 <i class="fas fa-sign-out-alt" style="margin-right:10px;"></i>Đăng xuất
                             </a>
@@ -48,7 +53,7 @@
         </header>
 
 
-        <div class="main-contents">
+        <div class="container">
             <router-view></router-view>
 
  
@@ -132,7 +137,7 @@
                         </div>
                     </div>
                     <div class="publisher bt-1 border-light"> <img class="avatar avatar-xs" src="https://img.icons8.com/color/36/000000/administrator-male.png" alt="..."> <input class="publisher-input" type="text" placeholder="Write something"> <span class="publisher-btn file-group"> <i class="fa fa-paperclip file-browser"></i> <input type="file"> </span> <a class="publisher-btn" href="#" data-abc="true"><i class="fa fa-smile"></i></a> <a class="publisher-btn text-info" href="#" data-abc="true"><i class="fa fa-paper-plane"></i></a> </div>
-                </div>
+            </div>
 
 
 
@@ -148,11 +153,11 @@
 
 
 
-        <footer class="bg-secondary">
+        <!-- <footer class="bg-secondary">
             <div class="text-center pb-3" style="padding-top: 1rem!important;">
                 <p class="mb-0">Copyright ©2021. <strong>Quang An</strong></p>
             </div>
-        </footer>
+        </footer> -->
     </div>
 </template>
 

@@ -20,6 +20,9 @@ Vue.component('tinymce', tinymce)
 import Multiselect from 'vue-multiselect'
 Vue.component('multiselect', Multiselect)
 
+import ScrollLoader from 'vue-scroll-loader'
+Vue.use(ScrollLoader)
+
 import swal from 'sweetalert2'
 window.swal = swal;
 const toast = swal.mixin({
@@ -45,6 +48,12 @@ Vue.use(VueProgressBar, {
     height: '5px'
 })
 
+import VueCarousel from 'vue-carousel';
+Vue.use(VueCarousel);
+
+import VueSocialSharing from 'vue-social-sharing'
+Vue.use(VueSocialSharing);
+
 import { ToggleButton } from 'vue-js-toggle-button'
 Vue.component('ToggleButton', ToggleButton)
 
@@ -52,7 +61,13 @@ Vue.filter('upText', function(text){
     return text.charAt(0).toUpperCase() + text.slice(1)
 });
 Vue.filter('myDate',function(created){
-    return moment(created).format('L');
+    return moment(created).format('L'); //27/01/2021
+});
+Vue.filter('historyDate',function(created){
+    return moment(created).format('h:mm a, 	DD/MM/YYYY');
+});
+Vue.filter('historyDay',function(created){
+    return moment(created).format('LT');
 });
 
 

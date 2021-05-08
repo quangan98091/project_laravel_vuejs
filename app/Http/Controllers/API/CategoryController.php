@@ -20,7 +20,7 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        return Category::with('user')->where('is_published',1)->latest()->paginate(10);
+        return Category::with('user')->latest()->paginate(10);
     }
 
     /**

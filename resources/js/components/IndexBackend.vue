@@ -6,9 +6,6 @@
                 <router-link to="/" class="no-theme-logo">
                     <img src="admin/images/icon/logo.png" alt="ShareCode" style="max-width:160px;">
                 </router-link>
-                <!-- <a href="{{ url('/dashboard' )}}">
-                    <img src="{{ asset('admin/images/icon/logo.png') }}"/>
-                </a> -->
             </div>
             <div class="menu-sidebar__content js-scrollbar1">
                 <nav class="navbar-sidebar">
@@ -21,6 +18,11 @@
                         <li>
                             <router-link to="/user">
                                 <i class="fas fa-user"></i>Quản lý user
+                            </router-link>
+                        </li>
+                        <li>
+                            <router-link to="/chat">
+                                <i class="fab fa-facebook-messenger"></i>Trả lời tin nhắn
                             </router-link>
                         </li>
                         <li>
